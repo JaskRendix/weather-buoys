@@ -180,13 +180,27 @@ fn parse_record(line: &str, indices: &HashMap<String, usize>) -> Option<String> 
     let apd_idx = indices.get("APD").copied();
 
     // Safely extract values. If a column doesn't exist, we insert f32::NAN
-    let wspd = wspd_idx.and_then(|i| fields.get(i)).map_or(f32::NAN, |&v| parse_value(v, 99.0));
-    let pres = pres_idx.and_then(|i| fields.get(i)).map_or(f32::NAN, |&v| parse_value(v, 9999.0));
-    let atmp = atmp_idx.and_then(|i| fields.get(i)).map_or(f32::NAN, |&v| parse_value(v, 999.0));
-    let dewp = dewp_idx.and_then(|i| fields.get(i)).map_or(f32::NAN, |&v| parse_value(v, 999.0));
-    let wtmp = wtmp_idx.and_then(|i| fields.get(i)).map_or(f32::NAN, |&v| parse_value(v, 999.0));
-    let wvht = wvht_idx.and_then(|i| fields.get(i)).map_or(f32::NAN, |&v| parse_value(v, 90.0));
-    let apd = apd_idx.and_then(|i| fields.get(i)).map_or(f32::NAN, |&v| parse_value(v, 90.0));
+    let wspd = wspd_idx
+        .and_then(|i| fields.get(i))
+        .map_or(f32::NAN, |&v| parse_value(v, 99.0));
+    let pres = pres_idx
+        .and_then(|i| fields.get(i))
+        .map_or(f32::NAN, |&v| parse_value(v, 9999.0));
+    let atmp = atmp_idx
+        .and_then(|i| fields.get(i))
+        .map_or(f32::NAN, |&v| parse_value(v, 999.0));
+    let dewp = dewp_idx
+        .and_then(|i| fields.get(i))
+        .map_or(f32::NAN, |&v| parse_value(v, 999.0));
+    let wtmp = wtmp_idx
+        .and_then(|i| fields.get(i))
+        .map_or(f32::NAN, |&v| parse_value(v, 999.0));
+    let wvht = wvht_idx
+        .and_then(|i| fields.get(i))
+        .map_or(f32::NAN, |&v| parse_value(v, 90.0));
+    let apd = apd_idx
+        .and_then(|i| fields.get(i))
+        .map_or(f32::NAN, |&v| parse_value(v, 90.0));
 
     Some(format!(
         "{timestamp},{wspd:.1},{pres:.1},{atmp:.1},{dewp:.1},{wtmp:.1},{wvht:.2},{apd:.2}"
