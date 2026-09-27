@@ -109,11 +109,10 @@ fn download_buoy(
 
             // Detect and parse the header row dynamically
             if line.starts_with('#') {
-                if let Some(parsed_map) = parse_header(&line) {
-                    // Ensure we are grabbing the name row, not the units row
-                    if parsed_map.contains_key("WSPD") || parsed_map.contains_key("SPD") {
-                        column_indices = Some(parsed_map);
-                    }
+                if let Some(parsed_map) = parse_header(&line)
+                    && (parsed_map.contains_key("WSPD") || parsed_map.contains_key("SPD"))
+                {
+                    column_indices = Some(parsed_map);
                 }
                 continue;
             }
