@@ -118,11 +118,10 @@ fn download_buoy(
                 continue;
             }
 
-            // Once we have mapped the columns, parse the data rows
-            if let Some(ref indices) = column_indices {
-                if let Some(record) = parse_record(&line, indices) {
-                    writeln!(output, "{record}")?;
-                }
+            if let Some(ref indices) = column_indices
+                && let Some(record) = parse_record(&line, indices)
+            {
+                writeln!(output, "{record}")?;
             }
         }
 
@@ -148,7 +147,7 @@ fn parse_header(line: &str) -> Option<HashMap<String, usize>> {
 
 fn parse_record(line: &str, indices: &HashMap<String, usize>) -> Option<String> {
     let fields: Vec<&str> = line.split_whitespace().collect();
-    
+
     // We need at least the basic time columns to form a timestamp
     if fields.len() < 5 {
         return None;
@@ -158,7 +157,7 @@ fn parse_record(line: &str, indices: &HashMap<String, usize>) -> Option<String> 
     let month: u32 = fields[1].parse().ok()?;
     let day: u32 = fields[2].parse().ok()?;
     let hour: u32 = fields[3].parse().ok()?;
-    
+
     // Sometimes 'mm' (minute) is omitted or non-numeric in very old formats
     let minute: u32 = if fields[4].chars().all(char::is_numeric) {
         fields[4].parse().unwrap_or(0)

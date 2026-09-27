@@ -90,7 +90,3 @@ python plotting/plot_metric.py --metric air_temp
 # Plot wave height
 python plotting/plot_metric.py --metric wave_height
 ```
-
-## Contributors
-
-* [Michael Hirsch](https://github.com/scivision)
