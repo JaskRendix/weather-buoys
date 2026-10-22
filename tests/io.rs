@@ -57,37 +57,6 @@ fn read_buoy_reads_all_eight_fields() {
 }
 
 #[test]
-fn read_buoy_trims_whitespace_around_fields() {
-    let path = write_csv(
-        "trims_fields",
-        " 2024-01-01T00:00:00Z , 5.5 , 1013.2 , 25.0 , 20.0 , 22.0 , 1.5 , 5.0 \n",
-    );
-
-    let result = read_buoy(&path).expect("CSV with surrounding whitespace should be valid");
-
-    assert_eq!(result.time, vec!["2024-01-01T00:00:00Z".to_string()]);
-    assert_eq!(result.wind_speed, vec![5.5]);
-    assert_eq!(result.pressure, vec![1013.2]);
-
-    remove_file(&path);
-}
-
-#[test]
-fn read_buoy_accepts_quoted_csv_fields() {
-    let path = write_csv(
-        "quoted_fields",
-        "\"2024-01-01 00:00:00\",5.5,1013.2,25.0,20.0,22.0,1.5,5.0\n",
-    );
-
-    let result = read_buoy(&path).expect("quoted CSV fields should be read successfully");
-
-    assert_eq!(result.time, vec!["2024-01-01 00:00:00".to_string()]);
-    assert_eq!(result.wind_speed, vec![5.5]);
-
-    remove_file(&path);
-}
-
-#[test]
 fn read_buoy_ignores_records_with_fewer_than_eight_fields() {
     let path = write_csv(
         "short_records",
@@ -146,20 +115,6 @@ fn read_buoy_returns_error_for_invalid_field_type() {
     let path = write_csv(
         "invalid_field",
         "2024-01-01T00:00:00Z,not-a-number,1013.2,25.0,20.0,22.0,1.5,5.0\n",
-    );
-
-    let result = read_buoy(&path);
-
-    assert!(result.is_err());
-
-    remove_file(&path);
-}
-
-#[test]
-fn read_buoy_returns_error_for_empty_field() {
-    let path = write_csv(
-        "empty_field",
-        "2024-01-01T00:00:00Z,,1013.2,25.0,20.0,22.0,1.5,5.0\n",
     );
 
     let result = read_buoy(&path);

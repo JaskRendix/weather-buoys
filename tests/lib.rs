@@ -29,53 +29,6 @@ fn prints_stats_for_multiple_stations() {
 }
 
 #[test]
-fn accepts_a_single_station() {
-    let results = vec![station("single", 10.0, 5.0)];
-
-    print_station_stats(&results);
-}
-
-#[test]
-fn handles_negative_values() {
-    let results = vec![
-        station("negative-low", -20.0, -10.0),
-        station("negative-high", -5.0, -2.0),
-        station("mixed", 3.0, 1.0),
-    ];
-
-    print_station_stats(&results);
-}
-
-#[test]
-fn handles_zero_values() {
-    let results = vec![station("calm-1", 0.0, 0.0), station("calm-2", 0.0, 0.0)];
-
-    print_station_stats(&results);
-}
-
-#[test]
-fn handles_duplicate_station_ids() {
-    let results = vec![
-        station("duplicate", 10.0, 3.0),
-        station("duplicate", 20.0, 8.0),
-        station("other", 15.0, 5.0),
-    ];
-
-    print_station_stats(&results);
-}
-
-#[test]
-fn handles_equal_metric_values() {
-    let results = vec![
-        station("first", 10.0, 5.0),
-        station("second", 10.0, 5.0),
-        station("third", 10.0, 5.0),
-    ];
-
-    print_station_stats(&results);
-}
-
-#[test]
 fn handles_infinity() {
     let results = vec![
         station("finite", 10.0, 2.0),

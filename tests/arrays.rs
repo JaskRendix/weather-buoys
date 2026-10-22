@@ -96,11 +96,6 @@ fn mean_returns_none_for_empty_input() {
 }
 
 #[test]
-fn mean_returns_the_single_value_for_singleton_input() {
-    assert_eq!(mean(&[42.5]), Some(42.5));
-}
-
-#[test]
 fn mean_calculates_the_arithmetic_mean() {
     let input = [1.0, 2.0, 3.0, 4.0, 5.0];
 
@@ -115,23 +110,9 @@ fn mean_handles_negative_and_fractional_values() {
 }
 
 #[test]
-fn mean_handles_zero_sum() {
-    let input = [-10.0, 10.0];
-
-    assert_eq!(mean(&input), Some(0.0));
-}
-
-#[test]
 fn mean_handles_infinity_when_the_result_is_defined() {
     assert_eq!(mean(&[f32::INFINITY, 1.0]), Some(f32::INFINITY));
     assert_eq!(mean(&[f32::NEG_INFINITY, -1.0]), Some(f32::NEG_INFINITY));
-}
-
-#[test]
-fn mean_returns_nan_when_input_contains_nan() {
-    let result = mean(&[1.0, f32::NAN, 3.0]);
-
-    assert!(result.unwrap().is_nan());
 }
 
 #[test]

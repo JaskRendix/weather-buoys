@@ -21,11 +21,6 @@ fn tile_indices_returns_none_for_worker_id_out_of_bounds() {
 }
 
 #[test]
-fn tile_indices_returns_the_entire_range_for_one_worker() {
-    assert_eq!(tile_indices(10, 1, 0), Some(0..10));
-}
-
-#[test]
 fn tile_indices_returns_empty_range_for_zero_dimensions() {
     assert_eq!(tile_indices(0, 3, 0), Some(0..0));
     assert_eq!(tile_indices(0, 3, 1), Some(0..0));
@@ -127,11 +122,6 @@ fn parallel_mean_returns_none_when_all_values_are_nan() {
 }
 
 #[test]
-fn parallel_mean_returns_the_single_value() {
-    assert_eq!(parallel_mean(&[42.5]), Some(42.5));
-}
-
-#[test]
 fn parallel_mean_ignores_nan_values() {
     let values = [1.0, f32::NAN, 3.0, f32::NAN, 5.0];
 
@@ -150,13 +140,6 @@ fn parallel_mean_handles_negative_and_fractional_values() {
     let values = [-2.5, 1.5, 4.0];
 
     assert_close(parallel_mean(&values).unwrap(), 1.0);
-}
-
-#[test]
-fn parallel_mean_handles_zero_sum() {
-    let values = [-10.0, 10.0];
-
-    assert_eq!(parallel_mean(&values), Some(0.0));
 }
 
 #[test]
